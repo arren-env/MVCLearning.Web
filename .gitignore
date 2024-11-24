@@ -1,0 +1,6 @@
+.idea
+.vscode
+.vs
+Migrations
+bin
+obj
