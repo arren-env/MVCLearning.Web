@@ -6,32 +6,46 @@
 
 @model List<MVCLearning.Web.Models.Entities.Student>
 
-<h1>Students</h1>
+<div class="d-flex justify-content-between align-items-center">
+    <h1>Students</h1>
+    <a class="btn btn-primary" asp-asp-controller="Student" asp-action="Add">Add Student</a>
+</div>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Action</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var student in Model)
-        {
+@if (Model.Count > 0)
+{
+    <table class="table">
+        <thead>
             <tr>
-                <td>@student.Id</td>
-                <td>@student.Name</td>
-                <td>@student.Email</td>
-                <td>@student.Phone</td>
-                <td>
-                    <a class="btn btn-primary" asp-controller="Student" asp-action="Edit" asp-route-id="@student.Id">Edit</a>
-                </td>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Action</th>
             </tr>
-        }
-    </tbody>
+        </thead>
+        <tbody>
+            @foreach (var student in Model)
+            {
+                <tr>
+                    <td>@student.Id</td>
+                    <td>@student.Name</td>
+                    <td>@student.Email</td>
+                    <td>@student.Phone</td>
+                    <td>
+                        <a class="btn btn-primary" asp-controller="Student" asp-action="Edit"
+                            asp-route-id="@student.Id">Edit</a>
+                        <form asp-controller="Student" asp-action="Delete" method="post" style="display:inline;">
+                            <input type="hidden" name="id" value="@student.Id" />
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
 
-
-</table>
+    </table>
+}
+else
+{
+    <h1 class="text-center">No Students!</h1>
+}

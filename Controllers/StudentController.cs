@@ -15,6 +15,11 @@ namespace MVCLearning.Web.Controllers
             this.dbContext = dbContext;
         }
 
+        public IActionResult Index()
+        {
+            return View();
+        }
+
         [HttpGet]
         public ActionResult Add()
         {
@@ -68,15 +73,17 @@ namespace MVCLearning.Web.Controllers
         }
 
         [HttpPost]
+
         public async Task<ActionResult> Delete(Student viewModel)
         {
             var student = await dbContext.Students.AsNoTracking().FirstOrDefaultAsync(s => s.Id == viewModel.Id);
             if (student is not null)
             {
-                dbContext.Students.Remove(viewModel);
+                dbContext.Students.Remove(student);
                 await dbContext.SaveChangesAsync();
             }
             return RedirectToAction("List", "Student");
         }
+
     }
 }
